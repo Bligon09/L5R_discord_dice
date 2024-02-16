@@ -41,7 +41,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
-
+roll=0
+keep=0
+num_list=[]
 @client.event
 async def on_ready():
     print(f'Successfully connected! Logged in as {client.user}.')
@@ -51,8 +53,19 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-winnings=dice_roll(7, 4)
+    if message.content.startswith('$roll'):
+        message_r=reversed(message.content.split())
 
-print(winnings, roll_total(winnings))
+        message_r_list = list(message_r)
+
+        print(message_r_list[0])
+
+
+        await message.channel.send('How many dice would you like to keep?')
+
+    # if message.content.startswith('$keep'):
+# winnings=dice_roll(7, 4)
+
+# print(winnings, roll_total(winnings))
 
 client.run(os.environ['DISCORD_TOKEN'])
