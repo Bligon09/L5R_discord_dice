@@ -1,4 +1,9 @@
+import discord
+import os 
 import random
+
+intents = discord.Intents.default()
+intents.message_content = True
 
 def dice_roll(roll, keep):
 
@@ -31,6 +36,23 @@ def roll_total(dice): #total when added all dice results
 
     return total
 
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print(f'Successfully connected! Logged in as {client.user}.')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
 winnings=dice_roll(7, 4)
 
 print(winnings, roll_total(winnings))
+
+client.run(os.environ['DISCORD_TOKEN'])
