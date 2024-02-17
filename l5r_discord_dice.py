@@ -7,8 +7,11 @@ intents.message_content = True
 
 def dice_roll(roll, keep):
 
-    if type(roll)!=int or type(keep)!=int or keep>roll or roll<0 or keep<0: #this line checks to make sure input is entered correctly
+    if roll.isdigit()==False or keep.isdigit()==False:
         return "Whoops, something not entered correctly"
+
+    # if type(roll)!=int or type(keep)!=int or keep>roll or roll<0 or keep<0: #this line checks to make sure input is entered correctly
+    #     return "Whoops, something not entered correctly"
     results=[]
     current_roll=0
     not_kept=roll-keep+1
@@ -29,7 +32,7 @@ def dice_roll(roll, keep):
 
 def roll_total(dice): #total when added all dice results
     if type(dice)==str:
-        return "try entering a format similar to this: R7 K4"
+        return "try entering a format similar to this: $roll "
     total=0
     for die in dice:
         total=total+die
@@ -41,8 +44,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
-roll=0
-keep=0
 num_list=[]
 @client.event
 async def on_ready():
@@ -58,10 +59,33 @@ async def on_message(message):
 
         message_r_list = list(message_r)
 
-        print(message_r_list[0])
+        print("list",message_r_list)
 
+        keepin=int(message_r_list[0])
+        rollin=int(message_r_list[2])
+        print(type(rollin))
+        print(type(keepin))
+        winnings=dice_roll(rollin, keepin)
+        total=roll_total(winnings)
+        everything=(winnings, total)
+        await message.channel.send(everything)
+    
+    # if message.content.startswith('$keep'):
+        # message_r=reversed(message.content.split())
 
-        await message.channel.send('How many dice would you like to keep?')
+        # message_r_list = list(message_r)
+
+        # print(message_r_list[0])
+
+        # keepin=message_r_list[0]
+
+        # print(keepin)
+
+        # winnings=dice_roll(rollin,keepin)
+
+        # results=list(winnings, roll_total(winnings))
+        # results=["test", 24]
+        # await message.channel.send(results)
 
     # if message.content.startswith('$keep'):
 # winnings=dice_roll(7, 4)
