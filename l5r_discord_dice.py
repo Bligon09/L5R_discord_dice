@@ -48,7 +48,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
-num_list=[]
 @client.event
 async def on_ready():
     print(f'Successfully connected! Logged in as {client.user}.')
