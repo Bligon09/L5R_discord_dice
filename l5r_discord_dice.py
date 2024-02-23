@@ -2,9 +2,6 @@ import discord
 import os 
 import random
 
-intents = discord.Intents.default()
-intents.message_content = True
-
 def dice_roll(roll, keep):
 
     if roll.isdigit()==False or keep.isdigit()==False: #this checks to make sure its a number
@@ -35,7 +32,9 @@ def dice_roll(roll, keep):
     
     return results
 
-def roll_total(dice): #total when added all dice results
+
+def roll_total(dice): 
+    """total when added all dice results"""
     if type(dice)==str:
         return "try entering a format similar to this: $roll 9 keep 4"
     total=0
@@ -45,7 +44,7 @@ def roll_total(dice): #total when added all dice results
     return total
 
 
-intents = discord.Intents.default()
+intents = discord.Intents.default() 
 intents.message_content = True
 
 client = discord.Client(intents=intents)
